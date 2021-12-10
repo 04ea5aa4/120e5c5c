@@ -1,18 +1,33 @@
-using LinkPage.Links.Classic;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
+using LinkPage.Links;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IntegrationTests.Links.Classic
 {
     public class TestGetLink
     {
+        private readonly TestData _testData = new TestData
+        {
+            ClassicLinks = new List<ClassicLinkModel>()
+            {
+                new ClassicLinkModel
+                {
+                    Id = 1,
+                    Title = "Google",
+                    Url = "https://google.com",
+                },
+            },
+        };
+
         [Fact]
         public async Task GetLink_ReturnsStatusOK()
         {
-            var client = new WebApplicationFactory<Program>().CreateClient();
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
             var response = await client.GetAsync("/v1/users/1/links/classic/1");
 
@@ -22,13 +37,7 @@ namespace IntegrationTests.Links.Classic
         [Fact]
         public async Task GetLinks_ContainsExpectedLinks()
         {
-            var expectedLink = new Model
-            {
-                Id = 1,
-                Title = "Google",
-                Url = "https://google.com",
-            };
-            var client = new WebApplicationFactory<Program>().CreateClient();
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
             var response = await client.GetAsync("/v1/users/1/links/classic/1");
             var serialisedBody = await response.Content.ReadAsStringAsync();
@@ -36,9 +45,9 @@ namespace IntegrationTests.Links.Classic
             {
                 PropertyNameCaseInsensitive = true,
             };
-            var actualLink = JsonSerializer.Deserialize<Model>(serialisedBody, options);
+            var actualLink = JsonSerializer.Deserialize<ClassicLinkModel>(serialisedBody, options);
 
-            Assert.Equal(expectedLink, actualLink);
+            Assert.Equal(_testData.ClassicLinks.First(), actualLink);
         }
     }
 }
