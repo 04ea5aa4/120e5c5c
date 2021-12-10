@@ -19,8 +19,9 @@ namespace LinkPage
             _links.Add(newLink);
         }
 
-        public Link? GetLink(int userId, int linkId) => _links
+        public T? GetLink<T>(int userId, int linkId) => _links
             .Where(link => link.UserId == userId && link.LinkId == linkId)
+            .OfType<T>()
             .FirstOrDefault();
 
         public IEnumerable<Link> GetLinks(int userId) => _links

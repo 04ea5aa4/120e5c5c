@@ -47,7 +47,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/1");
+            var response = await client.GetAsync("/v1/users/1/links/classic/1");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -59,7 +59,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync($"/v1/users/{userId}/links/1");
+            var response = await client.GetAsync($"/v1/users/{userId}/links/classic/1");
             var body = await response.Content.ReadAsStringAsync();
             var link = Helpers.Deserialize<ClassicLink>(body);
 
@@ -73,7 +73,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync($"/v1/users/1/links/{linkId}");
+            var response = await client.GetAsync($"/v1/users/1/links/classic/{linkId}");
             var body = await response.Content.ReadAsStringAsync();
             var link = Helpers.Deserialize<ClassicLink>(body);
 
@@ -85,7 +85,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/3");
+            var response = await client.GetAsync("/v1/users/1/links/classic/3");
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -95,7 +95,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/3");
+            var response = await client.GetAsync("/v1/users/1/links/classic/3");
             var serialisedBody = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(string.Empty, serialisedBody);

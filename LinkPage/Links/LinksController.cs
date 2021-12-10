@@ -26,19 +26,5 @@ namespace LinkPage
 
             return NotFound(Array.Empty<Link>());
         }
-
-        [HttpGet]
-        [Route("{linkId}")]
-        public ActionResult<Link> Get(int userId, int linkId)
-        {
-            var link = _repository.GetLink(userId, linkId);
-
-            if (link != null)
-            {
-                return Ok((object)link);
-            }
-
-            return NotFound(null);
-        }
     }
 }
