@@ -9,6 +9,9 @@
 ## Decisions I made
 * My solution is built with .NET 6 and ASP Core because that's what I am most familiar with.
 
+## To do
+* Add logging for priviledged actions like modifying data.
+
 <p align="center">
   <img src="./Screen%20Shot%202019-07-08%20at%202.09.47%20pm.png">
 </p>
