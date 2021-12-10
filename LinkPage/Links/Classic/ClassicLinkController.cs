@@ -14,7 +14,17 @@ namespace LinkPage.Links
         }
 
         [HttpGet]
-        public IEnumerable<ClassicLinkModel> Get() => _repository.Get();
+        public ActionResult<IEnumerable<ClassicLinkModel>> Get()
+        {
+            var links = _repository.Get();
+
+            if (links.Any())
+            {
+                return Ok(links);
+            }
+
+            return NotFound(links);
+        }
 
         [HttpGet]
         [Route("{id}")]
@@ -22,12 +32,12 @@ namespace LinkPage.Links
         {
             var link = _repository.Get(id);
 
-            if (link == null)
+            if (link != null)
             {
-                return NotFound(null);
+                return Ok(link);
             }
 
-            return Ok(link);
+            return NotFound(null);
         }
     }
 }
