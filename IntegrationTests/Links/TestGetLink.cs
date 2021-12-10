@@ -13,7 +13,7 @@ namespace IntegrationTests.Links
     {
         private readonly TestData _testData = new()
         {
-            Links = new List<ClassicLink>()
+            Links = new List<Link>()
             {
                 new ClassicLink
                 {
@@ -21,6 +21,13 @@ namespace IntegrationTests.Links
                     UserId = 1,
                     Title = "Google",
                     Url = "https://google.com",
+                },
+                new ClassicLink
+                {
+                    LinkId = 1,
+                    UserId = 2,
+                    Title = "LinkedIn",
+                    Url = "https://linkedin.com",
                 },
             },
         };
@@ -35,8 +42,10 @@ namespace IntegrationTests.Links
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact]
-        public async Task GetLinks_WhenLinksExists_BodyContainsExpectedLinks()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 1)]
+        public async Task GetLinks_WhenUserAndLinkIdChange_BodyContainsExpectedLinks(int userId, int linkId)
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
@@ -48,7 +57,8 @@ namespace IntegrationTests.Links
             };
             var actualLink = JsonSerializer.Deserialize<ClassicLink>(serialisedBody, options);
 
-            Assert.Equal(_testData.Links.First(), actualLink);
+            Assert.Equal(_testData.Links.First().UserId, actualLink.UserId);
+            Assert.Equal(_testData.Links.First().LinkId, actualLink.LinkId);
         }
 
         [Fact]
