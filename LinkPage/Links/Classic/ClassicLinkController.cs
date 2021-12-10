@@ -24,7 +24,7 @@ namespace LinkPage.Links
 
             if (link == null)
             {
-                return NotFound();
+                return NotFound(null);
             }
 
             return Ok(link);
