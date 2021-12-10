@@ -4,7 +4,7 @@ namespace IntegrationTests
 {
     public static class Helpers
     {
-        public static T Deserialize<T>(string str)
+        public static T? Deserialize<T>(string str)
         {
             var options = new JsonSerializerOptions
             {

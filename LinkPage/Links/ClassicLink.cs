@@ -2,7 +2,7 @@ namespace LinkPage.Links
 {
     public class ClassicLink : Link
     {
-        public string Url { get; set; }
+        public string Url { get; set; } = string.Empty;
 
         public override ClassicLink Clone() => new()
         {
@@ -23,5 +23,8 @@ namespace LinkPage.Links
                 otherLink.Title == Title &&
                 otherLink.Url == Url;
         }
+
+        public override int GetHashCode() =>
+            LinkId + UserId + Title.GetHashCode() + Url.GetHashCode();
     }
 } 

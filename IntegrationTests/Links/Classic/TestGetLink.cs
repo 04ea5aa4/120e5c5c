@@ -62,7 +62,7 @@ namespace IntegrationTests.Links.Classic
             var body = await response.Content.ReadAsStringAsync();
             var link = Helpers.Deserialize<ClassicLink>(body);
 
-            Assert.Equal(userId, link.UserId);
+            Assert.Equal(userId, link?.UserId);
         }
 
         [Theory]
@@ -76,7 +76,7 @@ namespace IntegrationTests.Links.Classic
             var body = await response.Content.ReadAsStringAsync();
             var link = Helpers.Deserialize<ClassicLink>(body);
 
-            Assert.Equal(linkId, link.LinkId);
+            Assert.Equal(linkId, link?.LinkId);
         }
 
         [Fact]

@@ -2,7 +2,7 @@
 {
     public class ShowsLink : Link
     {
-        public IEnumerable<Show> Shows { get; set; }
+        public IEnumerable<Show> Shows { get; set; } = new List<Show>();
 
         public override ShowsLink Clone() => new()
         {
@@ -26,9 +26,9 @@
 
             public DateTime Date { get; set; }
 
-            public string VenueName { get; set; }
+            public string VenueName { get; set; } = string.Empty;
 
-            public string VenueLocation { get; set; }
+            public string VenueLocation { get; set; } = string.Empty;
 
             public bool IsSoldOut { get; set; }
 

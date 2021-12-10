@@ -10,7 +10,7 @@ namespace IntegrationTests
 {
     public static class WebApplicationFactoryExtensions
     {
-        public static HttpClient CreateTestClient(this WebApplicationFactory<Program> factory, IEnumerable<Link> testData = null) =>
+        public static HttpClient CreateTestClient(this WebApplicationFactory<Program> factory, IEnumerable<Link>? testData = null) =>
             factory
                 .WithWebHostBuilder(builder =>
                     builder.ConfigureTestServices(services =>
