@@ -20,11 +20,13 @@ namespace LinkPage.Links.Classic
             }
 
             return obj is ClassicLink otherLink &&
+                otherLink.LinkId == LinkId &&
+                otherLink.UserId == UserId &&
                 otherLink.Title == Title &&
                 otherLink.Url == Url;
         }
 
         public override int GetHashCode() =>
-            LinkId + UserId + Title.GetHashCode() + Url.GetHashCode();
+            LinkId ^ UserId ^ Title.GetHashCode() ^ Url.GetHashCode();
     }
 } 
