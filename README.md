@@ -8,6 +8,8 @@
 
 ## Decisions I made
 * My solution is built with .NET 6 and ASP Core because that's what I am most familiar with.
+* I decided to have my links endpoint return an array with many different link type object types in it. Having a different URL per object type would have been simplier and more RESTful, however, this trade-off for complexity allows the UI to get all of the data that it needs in one API call. In reality, these architectural trade-offs would have been discussed and documented between affected groups.
+* I chose a REST style API over GraphQL because it is what I am familiar with. GraphQL could be a more appropriate technology for this kind of problem.
 
 ## To do
 * Add logging for priviledged actions like modifying data.
