@@ -1,22 +1,21 @@
-using LinkPage;
+using LinkPage.Links.Classic;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests
+namespace IntegrationTests.Links.Classic
 {
-    public class TestLinks
+    public class TestClassicLinks
     {
         [Fact]
         public async Task GetLinks_ReturnsStatusOK()
         {
             var client = new WebApplicationFactory<Program>().CreateClient();
 
-            var response = await client.GetAsync("/v1/users/1/links");
+            var response = await client.GetAsync("/v1/users/1/links/classic");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -24,28 +23,28 @@ namespace UnitTests
         [Fact]
         public async Task GetLinks_ContainsExpectedLinks()
         {
-            var expectedLinks = new List<Link>()
+            var expectedLinks = new List<Model>()
             {
-                new Link
+                new Model
                 {
-                    Text = "Google",
+                    Title = "Google",
                     Url = "https://google.com",
                 },
-                new Link
+                new Model
                 {
-                    Text = "Facebook",
+                    Title = "Facebook",
                     Url = "https://facebook.com",
                 },
             };
             var client = new WebApplicationFactory<Program>().CreateClient();
 
-            var response = await client.GetAsync("/v1/users/1/links");
+            var response = await client.GetAsync("/v1/users/1/links/classic");
             var serialisedBody = await response.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
-            var actualLinks = JsonSerializer.Deserialize<IEnumerable<Link>>(serialisedBody, options);
+            var actualLinks = JsonSerializer.Deserialize<IEnumerable<Model>>(serialisedBody, options);
 
             Assert.Equal(expectedLinks, actualLinks);
         }
