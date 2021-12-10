@@ -7,9 +7,9 @@ namespace IntegrationTests
     {
         public TestData()
         {
-            ClassicLinks = new List<ClassicLinkModel>();
+            Links = new List<Link>();
         }
 
-        public IEnumerable<ClassicLinkModel> ClassicLinks { get; set; }
+        public IEnumerable<Link> Links { get; set; }
     }
 }

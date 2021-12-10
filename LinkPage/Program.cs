@@ -1,11 +1,11 @@
-using LinkPage.Links;
+using LinkPage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ClassicLinkRepository>();
+builder.Services.AddSingleton<LinksRepository>();
 
 var app = builder.Build();
 

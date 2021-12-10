@@ -7,15 +7,15 @@ using LinkPage.Links;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IntegrationTests.Links.Classic
+namespace IntegrationTests.Links
 {
     public class TestGetLink
     {
-        private readonly TestData _testData = new TestData
+        private readonly TestData _testData = new()
         {
-            ClassicLinks = new List<ClassicLinkModel>()
+            Links = new List<ClassicLink>()
             {
-                new ClassicLinkModel
+                new ClassicLink
                 {
                     Id = 1,
                     Title = "Google",
@@ -29,7 +29,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/classic/1");
+            var response = await client.GetAsync("/v1/users/1/links/1");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -39,15 +39,15 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/classic/1");
+            var response = await client.GetAsync("/v1/users/1/links/1");
             var serialisedBody = await response.Content.ReadAsStringAsync();
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
-            var actualLink = JsonSerializer.Deserialize<ClassicLinkModel>(serialisedBody, options);
+            var actualLink = JsonSerializer.Deserialize<ClassicLink>(serialisedBody, options);
 
-            Assert.Equal(_testData.ClassicLinks.First(), actualLink);
+            Assert.Equal(_testData.Links.First(), actualLink);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/classic/2");
+            var response = await client.GetAsync("/v1/users/1/links/2");
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
@@ -65,7 +65,7 @@ namespace IntegrationTests.Links.Classic
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync("/v1/users/1/links/classic/2");
+            var response = await client.GetAsync("/v1/users/1/links/2");
             var serialisedBody = await response.Content.ReadAsStringAsync();
 
             Assert.Equal(string.Empty, serialisedBody);

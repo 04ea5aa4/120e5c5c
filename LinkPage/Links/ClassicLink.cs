@@ -1,14 +1,10 @@
 namespace LinkPage.Links
 {
-    public class ClassicLinkModel
+    public class ClassicLink : Link
     {
-        public int Id { get; set; }
-
-        public string Title { get; set; }
-
         public string Url { get; set; }
 
-        public ClassicLinkModel Clone() => new()
+        public override ClassicLink Clone() => new()
         {
             Id = Id,
             Title = Title,
@@ -17,14 +13,12 @@ namespace LinkPage.Links
 
         public override bool Equals(object? obj)
         {
-            if (obj is not ClassicLinkModel)
+            if (obj is not ClassicLink)
             {
                 return false;
             }
 
-            var otherLink = obj as ClassicLinkModel;
-
-            return otherLink != null &&
+            return obj is ClassicLink otherLink &&
                 otherLink.Title == Title &&
                 otherLink.Url == Url;
         }

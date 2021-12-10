@@ -1,4 +1,4 @@
-﻿using LinkPage.Links;
+﻿using LinkPage;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ namespace IntegrationTests
                     {
                         if (testData != null)
                         {
-                            services.AddSingleton(new ClassicLinkRepository(testData.ClassicLinks));
+                            services.AddSingleton(new LinksRepository(testData.Links));
                         }
                     }))
                 .CreateClient();
