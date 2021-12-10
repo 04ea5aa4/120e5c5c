@@ -8,7 +8,7 @@ using Xunit;
 
 namespace IntegrationTests.Links.Classic
 {
-    public class TestClassicLinks
+    public class TestGetLinks
     {
         [Fact]
         public async Task GetLinks_ReturnsStatusOK()
@@ -27,11 +27,13 @@ namespace IntegrationTests.Links.Classic
             {
                 new Model
                 {
+                    Id = 1,
                     Title = "Google",
                     Url = "https://google.com",
                 },
                 new Model
                 {
+                    Id = 2,
                     Title = "Facebook",
                     Url = "https://facebook.com",
                 },

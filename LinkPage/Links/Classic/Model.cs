@@ -2,6 +2,8 @@ namespace LinkPage.Links.Classic
 {
     public class Model
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Url { get; set; }
