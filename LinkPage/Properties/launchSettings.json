@@ -2,11 +2,7 @@
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:26043",
-      "sslPort": 0
-    }
+    "anonymousAuthentication": true
   },
   "profiles": {
     "LinkPage": {
@@ -15,14 +11,6 @@
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "applicationUrl": "http://localhost:5116",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
