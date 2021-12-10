@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 using LinkPage.Links;
 using System.Collections.Generic;
 
-namespace IntegrationTests.Links
+namespace IntegrationTests.Links.Classic
 {
-    public class TestUserIdMatching
+    public class TestGetLink
     {
         private readonly List<Link> _testData = new()
         {
@@ -40,10 +41,20 @@ namespace IntegrationTests.Links
             },
         };
 
+        [Fact]
+        public async Task WhenLinkExists_StatusCodeIsOK()
+        {
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
+
+            var response = await client.GetAsync("/v1/users/1/links/1");
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        public async Task GetLink_WhenRequestHasUserId_LinkHasUserId(int userId)
+        public async Task WhenRequestHasUserId_BodyContainsLinkWithSameUserId(int userId)
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
@@ -57,15 +68,36 @@ namespace IntegrationTests.Links
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        public async Task GetLinks_WhenRequestHasUserId_LinksHaveUserId(int userId)
+        public async Task WhenRequestHasLinkId_BodyContainsLinkWithSameLinkId(int linkId)
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
-            var response = await client.GetAsync($"/v1/users/{userId}/links");
+            var response = await client.GetAsync($"/v1/users/1/links/{linkId}");
             var body = await response.Content.ReadAsStringAsync();
-            var links = Helpers.Deserialize<IEnumerable<ClassicLink>>(body);
+            var link = Helpers.Deserialize<ClassicLink>(body);
 
-            Assert.All(links, (link) => link.UserId = userId);
+            Assert.Equal(linkId, link.LinkId);
+        }
+
+        [Fact]
+        public async Task WhenLinkDoesNotExist_StatusCodeIsNotFound()
+        {
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
+
+            var response = await client.GetAsync("/v1/users/1/links/3");
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetLink_WhenLinkDoesNotExist_BodyIsEmpty()
+        {
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
+
+            var response = await client.GetAsync("/v1/users/1/links/3");
+            var serialisedBody = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(string.Empty, serialisedBody);
         }
     }
 }
