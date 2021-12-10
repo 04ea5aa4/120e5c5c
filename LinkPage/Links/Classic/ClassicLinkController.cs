@@ -13,6 +13,15 @@ namespace LinkPage.Links.Classic
             _repository = repository;
         }
 
+        [HttpPost]
+        public ActionResult<ClassicLink> Post(int userId, ClassicLink link)
+        {
+            var createdLink = _repository.Add(userId, link);
+            var newUrl = $"v1/users/{createdLink.UserId}/links/classic/{createdLink.LinkId}";
+
+            return Created(newUrl, createdLink);
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Link>> Get(int userId)
         {

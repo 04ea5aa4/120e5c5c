@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace LinkPage.Links.Classic
 {
     public class ClassicLink : Link
     {
+        [Required]
+        [MaxLength(2084)] // https://stackoverflow.com/a/33733386
         public string Url { get; set; } = string.Empty;
 
         public override ClassicLink Clone() => new()

@@ -11,12 +11,15 @@ namespace LinkPage
             _links = data.ToList();
         }
 
-        public void Add(Link link)
+        public Link Add(int userId, Link link)
         {
             var newLink = link.Clone();
             newLink.LinkId = _links.Count + 1;
-            
+            newLink.UserId = userId;
+
             _links.Add(newLink);
+
+            return newLink.Clone();
         }
 
         public T? GetLink<T>(int userId, int linkId) => _links
