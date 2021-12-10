@@ -18,6 +18,16 @@ namespace LinkPage.Links
 
         [HttpGet]
         [Route("{id}")]
-        public ClassicLinkModel Get(int id) => _repository.Get(id);
+        public ActionResult<ClassicLinkModel> Get(int id)
+        {
+            var link = _repository.Get(id);
+
+            if (link == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(link);
+        }
     }
 }

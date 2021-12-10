@@ -25,7 +25,7 @@ namespace IntegrationTests.Links.Classic
         };
 
         [Fact]
-        public async Task GetLink_ReturnsStatusOK()
+        public async Task GetLink_WhenLinkExists_ReturnsStatusOK()
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
@@ -35,7 +35,17 @@ namespace IntegrationTests.Links.Classic
         }
 
         [Fact]
-        public async Task GetLinks_ContainsExpectedLinks()
+        public async Task GetLink_WhenLinkDoesNotExist_ReturnsStatusNotFound()
+        {
+            var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
+
+            var response = await client.GetAsync("/v1/users/1/links/classic/2");
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetLinks_WhenLinksExists_BodyContainsExpectedLinks()
         {
             var client = new WebApplicationFactory<Program>().CreateTestClient(_testData);
 
