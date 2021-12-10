@@ -14,24 +14,21 @@ namespace IntegrationTests.Links
         [InlineData(2)]
         public async Task GetLink_WhenRequestHasLinkId_LinkHasId(int linkId)
         {
-            var testData = new TestData
+            var testData = new List<Link>
             {
-                Links = new List<Link>
+                new ClassicLink
                 {
-                    new ClassicLink
-                    {
-                        LinkId = 1,
-                        UserId = 1,
-                        Title = "DuckDuckGo",
-                        Url = "https://duckduckgo.com",
-                    },
-                    new ClassicLink
-                    {
-                        LinkId = 2,
-                        UserId = 1,
-                        Title = "Signal",
-                        Url = "https://signal.org",
-                    },
+                    LinkId = 1,
+                    UserId = 1,
+                    Title = "DuckDuckGo",
+                    Url = "https://duckduckgo.com",
+                },
+                new ClassicLink
+                {
+                    LinkId = 2,
+                    UserId = 1,
+                    Title = "Signal",
+                    Url = "https://signal.org",
                 },
             };
             var client = new WebApplicationFactory<Program>().CreateTestClient(testData);

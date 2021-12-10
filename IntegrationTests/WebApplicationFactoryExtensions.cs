@@ -1,22 +1,25 @@
 ﻿using LinkPage;
+using LinkPage.Links;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace IntegrationTests
 {
     public static class WebApplicationFactoryExtensions
     {
-        public static HttpClient CreateTestClient(this WebApplicationFactory<Program> factory, TestData testData) =>
+        public static HttpClient CreateTestClient(this WebApplicationFactory<Program> factory, IEnumerable<Link> testData = null) =>
             factory
                 .WithWebHostBuilder(builder =>
                     builder.ConfigureTestServices(services =>
                     {
-                        if (testData != null)
+                        if (testData is null)
                         {
-                            services.AddSingleton(new LinksRepository(testData.Links));
+                            testData = new List<Link>();
                         }
+                        services.AddSingleton(new LinksRepository(testData));
                     }))
                 .CreateClient();
     }

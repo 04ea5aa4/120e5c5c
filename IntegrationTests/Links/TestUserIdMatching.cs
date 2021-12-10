@@ -8,38 +8,35 @@ namespace IntegrationTests.Links
 {
     public class TestUserIdMatching
     {
-        private readonly TestData _testData = new()
+        private readonly List<Link> _testData = new()
         {
-            Links = new List<Link>()
+            new ClassicLink
             {
-                new ClassicLink
-                {
-                    LinkId = 1,
-                    UserId = 1,
-                    Title = "DuckDuckGo",
-                    Url = "https://duckduckgo.com",
-                },
-                new ClassicLink
-                {
-                    LinkId = 2,
-                    UserId = 1,
-                    Title = "Signal",
-                    Url = "https://signal.org",
-                },
-                new ClassicLink
-                {
-                    LinkId = 1,
-                    UserId = 2,
-                    Title = "Google",
-                    Url = "https://google.com",
-                },
-                new ClassicLink
-                {
-                    LinkId = 2,
-                    UserId = 2,
-                    Title = "Messenger",
-                    Url = "https://www.messenger.com",
-                },
+                LinkId = 1,
+                UserId = 1,
+                Title = "DuckDuckGo",
+                Url = "https://duckduckgo.com",
+            },
+            new ClassicLink
+            {
+                LinkId = 2,
+                UserId = 1,
+                Title = "Signal",
+                Url = "https://signal.org",
+            },
+            new ClassicLink
+            {
+                LinkId = 1,
+                UserId = 2,
+                Title = "Google",
+                Url = "https://google.com",
+            },
+            new ClassicLink
+            {
+                LinkId = 2,
+                UserId = 2,
+                Title = "Messenger",
+                Url = "https://www.messenger.com",
             },
         };
 

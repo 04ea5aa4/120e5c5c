@@ -12,40 +12,37 @@ namespace IntegrationTests.Links.Classic
 {
     public class TestGetLinks
     {
-        private readonly TestData _testData = new()
+        private readonly new List<Link> _testData = new()
         {
-            Links = new List<Link>()
+            new ClassicLink
             {
-                new ClassicLink
+                LinkId = 1,
+                UserId = 1,
+                Title = "Google",
+                Url = "https://google.com",
+            },
+            new ClassicLink
+            {
+                LinkId = 2,
+                UserId = 1,
+                Title = "Duck Duck Go",
+                Url = "https://duckduckgo.com",
+            },
+            new ShowsLink
+            {
+                LinkId = 3,
+                UserId = 1,
+                Title = "Shows",
+                Shows = new List<ShowsLink.Show>
                 {
-                    LinkId = 1,
-                    UserId = 1,
-                    Title = "Google",
-                    Url = "https://google.com",
-                },
-                new ClassicLink
-                {
-                    LinkId = 2,
-                    UserId = 1,
-                    Title = "Duck Duck Go",
-                    Url = "https://duckduckgo.com",
-                },
-                new ShowsLink
-                {
-                    LinkId = 3,
-                    UserId = 1,
-                    Title = "Shows",
-                    Shows = new List<ShowsLink.Show>
+                    new ShowsLink.Show
                     {
-                        new ShowsLink.Show
-                        {
-                            Id = 1,
-                            Date =  new DateTime(2022, 1, 1),
-                            VenueName = "Opera House",
-                            VenueLocation = "Sydney, Australia",
-                            IsSoldOut = false,
-                            IsOnSale = true,
-                        },
+                        Id = 1,
+                        Date =  new DateTime(2022, 1, 1),
+                        VenueName = "Opera House",
+                        VenueLocation = "Sydney, Australia",
+                        IsSoldOut = false,
+                        IsOnSale = true,
                     },
                 },
             },
@@ -78,7 +75,7 @@ namespace IntegrationTests.Links.Classic
         [Fact]
         public async Task GetLinks_WhenLinkDoesNotExist_ReturnsStatusNotFound()
         {
-            var client = new WebApplicationFactory<Program>().CreateTestClient(new TestData());
+            var client = new WebApplicationFactory<Program>().CreateTestClient();
 
             var response = await client.GetAsync("/v1/users/1/links");
 
@@ -88,7 +85,7 @@ namespace IntegrationTests.Links.Classic
         [Fact]
         public async Task GetLinks_WhenLinkExists_ContainsEmptyArray()
         {
-            var client = new WebApplicationFactory<Program>().CreateTestClient(new TestData());
+            var client = new WebApplicationFactory<Program>().CreateTestClient();
 
             var response = await client.GetAsync("/v1/users/1/links");
             var serialisedBody = await response.Content.ReadAsStringAsync();

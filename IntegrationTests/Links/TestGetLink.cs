@@ -11,24 +11,21 @@ namespace IntegrationTests.Links
 {
     public class TestGetLink
     {
-        private readonly TestData _testData = new()
+        private readonly List<Link> _testData = new()
         {
-            Links = new List<Link>()
+            new ClassicLink
             {
-                new ClassicLink
-                {
-                    LinkId = 1,
-                    UserId = 1,
-                    Title = "Google",
-                    Url = "https://google.com",
-                },
-                new ClassicLink
-                {
-                    LinkId = 1,
-                    UserId = 2,
-                    Title = "LinkedIn",
-                    Url = "https://linkedin.com",
-                },
+                LinkId = 1,
+                UserId = 1,
+                Title = "Google",
+                Url = "https://google.com",
+            },
+            new ClassicLink
+            {
+                LinkId = 1,
+                UserId = 2,
+                Title = "LinkedIn",
+                Url = "https://linkedin.com",
             },
         };
 
@@ -57,8 +54,8 @@ namespace IntegrationTests.Links
             };
             var actualLink = JsonSerializer.Deserialize<ClassicLink>(serialisedBody, options);
 
-            Assert.Equal(_testData.Links.First().UserId, actualLink.UserId);
-            Assert.Equal(_testData.Links.First().LinkId, actualLink.LinkId);
+            Assert.Equal(_testData.First().UserId, actualLink.UserId);
+            Assert.Equal(_testData.First().LinkId, actualLink.LinkId);
         }
 
         [Fact]
