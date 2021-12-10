@@ -1,4 +1,4 @@
-namespace LinkPage.Links
+namespace LinkPage.Links.Classic
 {
     public class ClassicLink : Link
     {

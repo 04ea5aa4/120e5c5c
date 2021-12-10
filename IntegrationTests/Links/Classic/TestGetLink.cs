@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xunit;
 using LinkPage.Links;
 using System.Collections.Generic;
+using LinkPage.Links.Classic;
 
 namespace IntegrationTests.Links.Classic
 {

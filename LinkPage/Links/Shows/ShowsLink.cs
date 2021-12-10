@@ -1,4 +1,4 @@
-﻿namespace LinkPage.Links
+﻿namespace LinkPage.Links.Shows
 {
     public class ShowsLink : Link
     {
