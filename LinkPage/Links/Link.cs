@@ -2,7 +2,9 @@
 {
     public abstract class Link
     {
-        public int Id { get; set; }
+        public int LinkId { get; set; }
+
+        public int UserId { get; set; }
 
         public string Title { get; set; }
 

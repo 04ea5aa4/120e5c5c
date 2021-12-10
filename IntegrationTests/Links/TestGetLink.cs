@@ -17,7 +17,8 @@ namespace IntegrationTests.Links
             {
                 new ClassicLink
                 {
-                    Id = 1,
+                    LinkId = 1,
+                    UserId = 1,
                     Title = "Google",
                     Url = "https://google.com",
                 },

@@ -18,16 +18,22 @@ namespace IntegrationTests.Links.Classic
             {
                 new ClassicLink
                 {
+                    LinkId = 1,
+                    UserId = 1,
                     Title = "Google",
                     Url = "https://google.com",
                 },
                 new ClassicLink
                 {
+                    LinkId = 2,
+                    UserId = 1,
                     Title = "Duck Duck Go",
                     Url = "https://duckduckgo.com",
                 },
                 new ShowsLink
                 {
+                    LinkId = 3,
+                    UserId = 1,
                     Title = "Shows",
                     Shows = new List<ShowsLink.Show>
                     {
@@ -63,9 +69,9 @@ namespace IntegrationTests.Links.Classic
             var response = await client.GetAsync("/v1/users/1/links");
             var serialisedBody = await response.Content.ReadAsStringAsync();
 
-            var expectedBody = "[{\"url\":\"https://google.com\",\"id\":0,\"title\":\"Google\",\"linkType\":\"ClassicLink\"}," +
-                "{\"url\":\"https://duckduckgo.com\",\"id\":0,\"title\":\"Duck Duck Go\",\"linkType\":\"ClassicLink\"}," +
-                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-01T00:00:00\",\"venueName\":\"Opera House\",\"venueLocation\":\"Sydney, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"id\":0,\"title\":\"Shows\",\"linkType\":\"ShowsLink\"}]";
+            var expectedBody = "[{\"url\":\"https://google.com\",\"linkId\":1,\"userId\":1,\"title\":\"Google\",\"linkType\":\"ClassicLink\"}," +
+                "{\"url\":\"https://duckduckgo.com\",\"linkId\":2,\"userId\":1,\"title\":\"Duck Duck Go\",\"linkType\":\"ClassicLink\"}," +
+                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-01T00:00:00\",\"venueName\":\"Opera House\",\"venueLocation\":\"Sydney, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"linkId\":3,\"userId\":1,\"title\":\"Shows\",\"linkType\":\"ShowsLink\"}]";
             Assert.Equal(expectedBody, serialisedBody);
         }
 

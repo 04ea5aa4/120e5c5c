@@ -6,7 +6,8 @@
 
         public override ShowsLink Clone() => new()
         {
-            Id = Id,
+            LinkId = LinkId,
+            UserId = UserId,
             Title = Title,
             Shows = Shows.Select(show => new Show
             {

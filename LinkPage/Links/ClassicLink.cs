@@ -6,7 +6,8 @@ namespace LinkPage.Links
 
         public override ClassicLink Clone() => new()
         {
-            Id = Id,
+            LinkId = LinkId,
+            UserId = UserId,
             Title = Title,
             Url = Url,
         };

@@ -15,9 +15,9 @@ namespace LinkPage
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Link>> Get()
+        public ActionResult<IEnumerable<Link>> Get(int userId)
         {
-            var links = _repository.Get();
+            var links = _repository.GetLinks(userId);
 
             if (links.Any())
             {
@@ -28,10 +28,10 @@ namespace LinkPage
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public ActionResult<Link> Get(int id)
+        [Route("{linkId}")]
+        public ActionResult<Link> Get(int userId, int linkId)
         {
-            var link = _repository.Get(id);
+            var link = _repository.GetLink(userId, linkId);
 
             if (link != null)
             {
