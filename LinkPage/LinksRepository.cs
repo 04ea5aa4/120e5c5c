@@ -35,7 +35,8 @@ namespace LinkPage
             .FirstOrDefault();
 
         public IEnumerable<ClassicLink> GetLinks(int userId) => _links
-            .Where(link => link.UserId == userId);
+            .Where(link => link.UserId == userId)
+            .OrderBy(link => link.CreatedUtc);
 
         private void PopulateTestData()
         {

@@ -7,16 +7,18 @@
 4. Run `dotnet run` to restore dependencies, build, and run the solution!
 
 ## Decisions I made
-* My solution is built with .NET 6 and ASP Core because that's what I am most familiar with.
-* I decided to have my links endpoint return an array with many different link type object types in it. Having a different URL per object type would have been simplier and more RESTful, however, this trade-off for complexity allows the UI to get all of the data that it needs in one API call. In reality, these architectural trade-offs would have been discussed and documented between affected groups.
+* My solution is built with C# on .NET 6 and ASP Core because that's what I am most familiar with. It meant I wasn't able to do the kind of functional programming you might do with Typescript or Javascript. In fact, I used inheritance a bit.
+* I decided to have a links endpoint that returns an array with many different link type object types in it. Only having a URL per object type would have been simplier and more RESTful, however, this trade-off for complexity allows the UI to get all of the data that it needs in one API call. In reality, these architectural trade-offs would have been discussed and documented between affected groups.
 * I chose a REST style API over GraphQL because it is what I am familiar with. GraphQL could be a more appropriate technology for this kind of problem.
 * I wrote a lot of integration tests rather than unit tests. Unit testing controllers in ASP.NET is finicky, so I made the trade-off to get the project done faster. If this was a long running project, I'd shift most of the integration tests over to be unit tests.
+* Links are always sorted by created date rather than taking in a parameter. It technically matches the specification, easy to add a more complex solution if needed.
 
 ## To do
 * Add logging for priviledged actions like modifying data.
 * Authorisation. Anyone can do anything right now.
-* Use audit tables to keep track of data changing over time
-* Restrict venue name and location lengths
+* Use audit tables to keep track of data changing over time.
+* Some load testing, I don't really know how this performs.
+* All of the things around the code that make it maintainable. Linting, static code vulnerability analysis, dependency vulnerability management, API documentation with something like OpenAPI.
 
 ## Schema design
 My default is to go for a relational database. Modern relational DBs are incredibly performant and ACID gives you so much for free which cuts down on application code.
