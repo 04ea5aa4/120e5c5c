@@ -18,6 +18,7 @@ namespace IntegrationTests.Links
             {
                 LinkId = 1,
                 UserId = 1,
+                CreatedUtc = new DateTime(2021, 12, 11, 1, 59, 0),
                 Title = "DuckDuckGo",
                 Url = "https://duckduckgo.com",
             },
@@ -25,6 +26,7 @@ namespace IntegrationTests.Links
             {
                 LinkId = 2,
                 UserId = 1,
+                CreatedUtc = new DateTime(2021, 12, 11, 1, 59, 0),
                 Title = "Live at the Aquarium",
                 Url = "https://bookshows.com/latqsdhfljksdh",
                 Shows = new List<ShowsLink.Show>
@@ -44,6 +46,7 @@ namespace IntegrationTests.Links
             {
                 LinkId = 1,
                 UserId = 2,
+                CreatedUtc = new DateTime(2021, 12, 11, 1, 59, 0),
                 Title = "Signal",
                 Url = "https://signal.org",
             },
@@ -51,6 +54,7 @@ namespace IntegrationTests.Links
             {
                 LinkId = 2,
                 UserId = 2,
+                CreatedUtc = new DateTime(2021, 12, 11, 1, 59, 0),
                 Title = "La Bohème",
                 Url = "https://bookshows.com/djkHIUY987ydsf",
                 Shows = new List<ShowsLink.Show>
@@ -86,8 +90,8 @@ namespace IntegrationTests.Links
             var response = await client.GetAsync("/v1/users/1/links");
             var actualBody = await response.Content.ReadAsStringAsync();
             var expectedBody = "[" +
-                "{\"linkId\":1,\"userId\":1,\"title\":\"DuckDuckGo\",\"url\":\"https://duckduckgo.com\",\"linkType\":\"ClassicLink\"}," +
-                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-01T00:00:00\",\"venueName\":\"The Aquarium of Western Australia\",\"venueLocation\":\"Perth, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"linkId\":2,\"userId\":1,\"title\":\"Live at the Aquarium\",\"url\":\"https://bookshows.com/latqsdhfljksdh\",\"linkType\":\"ShowsLink\"}" +
+                "{\"linkId\":1,\"userId\":1,\"createdUtc\":\"2021-12-11T01:59:00\",\"title\":\"DuckDuckGo\",\"url\":\"https://duckduckgo.com\",\"linkType\":\"ClassicLink\"}," +
+                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-01T00:00:00\",\"venueName\":\"The Aquarium of Western Australia\",\"venueLocation\":\"Perth, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"linkId\":2,\"userId\":1,\"createdUtc\":\"2021-12-11T01:59:00\",\"title\":\"Live at the Aquarium\",\"url\":\"https://bookshows.com/latqsdhfljksdh\",\"linkType\":\"ShowsLink\"}" +
                 "]";
             Assert.Equal(expectedBody, actualBody);
         }
@@ -101,8 +105,8 @@ namespace IntegrationTests.Links
             var actualBody = await response.Content.ReadAsStringAsync();
 
             var expectedBody = "[" +
-                "{\"linkId\":1,\"userId\":2,\"title\":\"Signal\",\"url\":\"https://signal.org\",\"linkType\":\"ClassicLink\"}," +
-                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-04T00:00:00\",\"venueName\":\"Sydney Opera House\",\"venueLocation\":\"Sydney, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"linkId\":2,\"userId\":2,\"title\":\"La Bohème\",\"url\":\"https://bookshows.com/djkHIUY987ydsf\",\"linkType\":\"ShowsLink\"}" +
+                "{\"linkId\":1,\"userId\":2,\"createdUtc\":\"2021-12-11T01:59:00\",\"title\":\"Signal\",\"url\":\"https://signal.org\",\"linkType\":\"ClassicLink\"}," +
+                "{\"shows\":[{\"id\":1,\"date\":\"2022-01-04T00:00:00\",\"venueName\":\"Sydney Opera House\",\"venueLocation\":\"Sydney, Australia\",\"isSoldOut\":false,\"isOnSale\":true}],\"linkId\":2,\"userId\":2,\"createdUtc\":\"2021-12-11T01:59:00\",\"title\":\"La Bohème\",\"url\":\"https://bookshows.com/djkHIUY987ydsf\",\"linkType\":\"ShowsLink\"}" +
                 "]";
             Assert.Equal(expectedBody, actualBody);
         }

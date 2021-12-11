@@ -22,6 +22,7 @@ namespace LinkPage
             var newLink = link.Clone();
             newLink.LinkId = _links.Count + 1;
             newLink.UserId = userId;
+            newLink.CreatedUtc = DateTime.UtcNow;
 
             _links.Add(newLink);
 
