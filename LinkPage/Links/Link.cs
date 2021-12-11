@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LinkPage.Links
+﻿namespace LinkPage.Links
 {
     public abstract class Link
     {
@@ -8,8 +6,6 @@ namespace LinkPage.Links
 
         public int UserId { get; set; }
 
-        [Required]
-        [MaxLength(144)]
         public string Title { get; set; } = string.Empty;
 
         public string LinkType => GetType().Name;

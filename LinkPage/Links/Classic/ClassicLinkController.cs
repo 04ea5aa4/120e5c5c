@@ -16,6 +16,13 @@ namespace LinkPage.Links.Classic
         [HttpPost]
         public ActionResult<ClassicLink> Post(int userId, ClassicLink link)
         {
+            var validationResult = new ClassicLinkValidator().Validate(link);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult);
+            }
+
             var createdLink = _repository.Add(userId, link);
             var newUrl = $"v1/users/{createdLink.UserId}/links/classic/{createdLink.LinkId}";
 

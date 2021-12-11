@@ -13,6 +13,21 @@ namespace LinkPage.Links.Shows
             _repository = repository;
         }
 
+        [HttpPost]
+        public ActionResult<ShowsLink> Post(int userId, ShowsLink link)
+        {
+            var validationResult = new ShowsLinkValidator().Validate(link);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult);
+            }
+
+            var createdLink = _repository.Add(userId, link);
+            var newUrl = $"v1/users/{createdLink.UserId}/links/shows/{createdLink.LinkId}";
+
+            return Created(newUrl, createdLink);
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Link>> Get(int userId)
         {
@@ -40,6 +55,14 @@ namespace LinkPage.Links.Shows
             }
 
             return NotFound(null);
+        }
+
+        private bool ShowIdsAreNotUnique(ShowsLink showsLink)
+        {
+            var numShows = showsLink.Shows.Count();
+            var numUniqueShowIds = showsLink.Shows.Select(show => show.Id).Distinct().Count();
+
+            return numUniqueShowIds != numShows;
         }
     }
 }

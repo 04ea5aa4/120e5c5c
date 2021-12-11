@@ -12,37 +12,7 @@ namespace IntegrationTests.Links.Classic
 {
     public class TestCreateLink
     {
-        private readonly List<Link> _testData = new()
-        {
-            new ClassicLink
-            {
-                LinkId = 1,
-                UserId = 1,
-                Title = "DuckDuckGo",
-                Url = "https://duckduckgo.com",
-            },
-            new ClassicLink
-            {
-                LinkId = 2,
-                UserId = 1,
-                Title = "Signal",
-                Url = "https://signal.org",
-            },
-            new ClassicLink
-            {
-                LinkId = 1,
-                UserId = 2,
-                Title = "Google",
-                Url = "https://google.com",
-            },
-            new ClassicLink
-            {
-                LinkId = 2,
-                UserId = 2,
-                Title = "Messenger",
-                Url = "https://www.messenger.com",
-            },
-        };
+        private readonly List<Link> _testData = new();
 
         [Fact]
         public async Task WhenLinkIsCreated_StatusCodeIsCreated()
@@ -106,7 +76,7 @@ namespace IntegrationTests.Links.Classic
         }
 
         [Fact]
-        public async Task WhenNewLinkUrlIsMissing_StatusCodeIsBadRequest()
+        public async Task WhenNewLinkUrlIsMissing_BadRequestMessageIsReturned()
         {
             var newLink = new ClassicLink
             {
@@ -114,11 +84,13 @@ namespace IntegrationTests.Links.Classic
             };
             var response = await SendCreateRequest(newLink);
 
+            var content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("'Url' must not be empty.", content);
         }
 
         [Fact]
-        public async Task WhenNewLinkUrlIsMoreThan2084Characters_StatusCodeIsBadRequest()
+        public async Task WhenNewLinkUrlIsMoreThan2084Characters_BadRequestMessageIsReturned()
         {
             var newLink = new ClassicLink
             {
@@ -148,11 +120,13 @@ namespace IntegrationTests.Links.Classic
             };
             var response = await SendCreateRequest(newLink);
 
+            var content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("The length of 'Url' must be 2084 characters or fewer.", content);
         }
 
         [Fact]
-        public async Task WhenNewLinkTitleIsMissing_StatusCodeIsBadRequest()
+        public async Task WhenNewLinkTitleIsMissing_BadRequestMessageIsReturned()
         {
             var newLink = new ClassicLink
             {
@@ -160,11 +134,13 @@ namespace IntegrationTests.Links.Classic
             };
             var response = await SendCreateRequest(newLink);
 
+            var content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("'Title' must not be empty.", content);
         }
 
         [Fact]
-        public async Task WhenNewLinkTitleIsMoreThan144Characters_StatusCodeIsBadRequest()
+        public async Task WhenNewLinkTitleIsMoreThan144Characters_BadRequestMessageIsReturned()
         {
             var newLink = new ClassicLink
             {
@@ -174,7 +150,9 @@ namespace IntegrationTests.Links.Classic
             };
             var response = await SendCreateRequest(newLink);
 
+            var content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("The length of 'Title' must be 144 characters or fewer.", content);
         }
 
         private async Task<HttpResponseMessage> SendCreateRequest(ClassicLink newLink)
