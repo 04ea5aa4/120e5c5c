@@ -11,6 +11,7 @@ namespace LinkPage.Links.Shows
             LinkId = LinkId,
             UserId = UserId,
             Title = Title,
+            Url = Url,
             Shows = Shows.Select(show => new Show
             {
                 Id = show.Id,

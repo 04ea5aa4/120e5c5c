@@ -43,6 +43,7 @@ namespace LinkPage
                 LinkId = 1,
                 UserId = 1,
                 Title = "La Bohème",
+                Url = "https://tickets-ahoy.com/7896HJKGh7tdfg",
                 Shows = new List<ShowsLink.Show>
                 {
                     new ShowsLink.Show

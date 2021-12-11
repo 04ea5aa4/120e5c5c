@@ -83,6 +83,24 @@ namespace IntegrationTests.Links.Shows
         }
 
         [Fact]
+        public async Task WhenLinkIsCreated_CreatedLinkIsReturned()
+        {
+            var newLink = new ShowsLink
+            {
+                LinkId = 1,
+                UserId = 5678,
+                Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
+                Shows = new List<ShowsLink.Show>()
+            };
+
+            var response = await SendCreateRequest(newLink);
+
+            var createdLink = await ReadCreatedLink(response);
+            Assert.Equal(newLink, createdLink);
+        }
+
+        [Fact]
         public async Task WhenTitleIsMissing_BadRequestMessageIsReturned()
         {
             var newLink = new ShowsLink
