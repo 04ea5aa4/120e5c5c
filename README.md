@@ -15,6 +15,44 @@
 ## To do
 * Add logging for priviledged actions like modifying data.
 * Authorisation. Anyone can do anything right now.
+* Use audit tables to keep track of data changing over time
+* Restrict venue name and location lengths
+
+## Schema design
+My default is to go for a relational database. Modern relational DBs are incredibly performant and ACID gives you so much for free which cuts down on application code.
+
+I've gone for a table per link type. We could totally denormalise it if having normalised data became an issue, but let's keep things tidy for now.
+
+### ClassicLink table
+| Column name | Data type | Constraints         | Notes |
+| ----------- | --------- | --------------      | ----- |
+| userId      | int       | Primary foreign key | Having this column in the links table allows super quick reduction of the dataset for a multi tenanted database. I'm not a DB expert, but I've been told integers should be first choice for indexes. GUIDs allow higher insert throughput but come with their own issues. See my opening notes. |
+| linkId      | int       | Primary key         | Not unique to the table which means they only need to be sequential on a per user basis. This reduces noisy neighbor link creation overhead. |
+| createdUtc | timestamp  |                     |       |
+| title      | text       |                     | Its length is limited in the application, no need to reduce future options for change here |
+| url        | text       |                     | Its length is limited in the application, no need to reduce future options for change here |
+
+
+### ShowsLink table
+| Column name | Data type | Constraints         | Notes                         |
+| ----------- | --------- | --------------      | ----------------------------- |
+| userId      | int       | Primary foreign key | Same reasoning as ClassicLink |
+| linkId      | int       | Primary key         | Same reasoning as ClassicLink |
+| createdUtc  | timestamp |                     |                               |
+| title       | text      |                     | Same reasoning as ClassicLink |
+| url         | text      |                     | Same reasoning as ClassicLink |
+
+### ShowsLinkShows table
+| Column name   | Data type | Constraints         | Notes               |
+| ------------- | --------- | --------------      | ------------------- |
+| userId        | int       | Primary foreign key | Ties this to an entry in ShowsLink |
+| linkId        | int       | Primary foreign key | Ties this to an entry in ShowsLink |
+| showId        | int       | Primary key         | Same reasoning as ClassicLink |
+| date          | date      |                     |                     |
+| venueName     | text      |                     |                     |
+| venueLocation | text      |                     |                     |
+| isSoldOut     | boolean   |                     |                     |
+| isOnSale      | boolean   |                     |                     |
 
 <p align="center">
   <img src="./Screen%20Shot%202019-07-08%20at%202.09.47%20pm.png">
