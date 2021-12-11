@@ -1,6 +1,8 @@
-﻿namespace LinkPage.Links.Shows
+﻿using LinkPage.Links.Classic;
+
+namespace LinkPage.Links.Shows
 {
-    public class ShowsLink : Link
+    public class ShowsLink : ClassicLink
     {
         public IEnumerable<Show> Shows { get; set; } = new List<Show>();
 

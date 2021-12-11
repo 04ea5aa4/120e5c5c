@@ -1,3 +1,4 @@
+using LinkPage.Links.Classic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkPage.Links.Shows
@@ -29,7 +30,7 @@ namespace LinkPage.Links.Shows
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Link>> Get(int userId)
+        public ActionResult<IEnumerable<ClassicLink>> Get(int userId)
         {
             var links = _repository
                 .GetLinks(userId)
@@ -40,12 +41,12 @@ namespace LinkPage.Links.Shows
                 return Ok(links.Select(link => (object)link));
             }
 
-            return NotFound(Array.Empty<Link>());
+            return NotFound(Array.Empty<ClassicLink>());
         }
 
         [HttpGet]
         [Route("{linkId}")]
-        public ActionResult<Link> Get(int userId, int linkId)
+        public ActionResult<ClassicLink> Get(int userId, int linkId)
         {
             var link = _repository.GetLink<ShowsLink>(userId, linkId);
 
@@ -55,14 +56,6 @@ namespace LinkPage.Links.Shows
             }
 
             return NotFound(null);
-        }
-
-        private bool ShowIdsAreNotUnique(ShowsLink showsLink)
-        {
-            var numShows = showsLink.Shows.Count();
-            var numUniqueShowIds = showsLink.Shows.Select(show => show.Id).Distinct().Count();
-
-            return numUniqueShowIds != numShows;
         }
     }
 }

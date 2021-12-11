@@ -1,12 +1,18 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace LinkPage.Links.Classic
 {
-    public class ClassicLink : Link
+    public class ClassicLink
     {
+        public int LinkId { get; set; }
+
+        public int UserId { get; set; }
+
+        public string Title { get; set; } = string.Empty;
+
         public string Url { get; set; } = string.Empty;
 
-        public override ClassicLink Clone() => new()
+        public string LinkType => GetType().Name;
+
+        public virtual ClassicLink Clone() => new()
         {
             LinkId = LinkId,
             UserId = UserId,

@@ -12,7 +12,7 @@ namespace IntegrationTests.Links.Classic
 {
     public class TestGetLinks
     {
-        private readonly List<Link> _testData = new()
+        private readonly List<ClassicLink> _testData = new()
         {
             new ClassicLink
             {

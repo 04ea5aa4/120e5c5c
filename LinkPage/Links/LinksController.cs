@@ -1,4 +1,5 @@
 using LinkPage.Links;
+using LinkPage.Links.Classic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkPage
@@ -15,7 +16,7 @@ namespace LinkPage
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Link>> Get(int userId)
+        public ActionResult<IEnumerable<ClassicLink>> Get(int userId)
         {
             var links = _repository.GetLinks(userId);
 
@@ -24,7 +25,7 @@ namespace LinkPage
                 return Ok(links.Select(link => (object)link));
             }
 
-            return NotFound(Array.Empty<Link>());
+            return NotFound(Array.Empty<ClassicLink>());
         }
     }
 }

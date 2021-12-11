@@ -1,4 +1,5 @@
 ﻿using LinkPage.Links;
+using LinkPage.Links.Classic;
 using LinkPage.Links.Shows;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
@@ -13,7 +14,7 @@ namespace IntegrationTests.Links.Shows
 {
     public class TestCreateLink
     {
-        private readonly List<Link> _testData = new();
+        private readonly List<ClassicLink> _testData = new();
 
         [Fact]
         public async Task WhenLinkIsCreated_StatusCodeIsCreated()
@@ -21,6 +22,7 @@ namespace IntegrationTests.Links.Shows
             var newLink = new ShowsLink
             {
                 Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
                 Shows = new List<ShowsLink.Show>()
             };
 
@@ -35,6 +37,7 @@ namespace IntegrationTests.Links.Shows
             var newLink = new ShowsLink
             {
                 Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
                 Shows = new List<ShowsLink.Show>()
             };
 
@@ -52,6 +55,7 @@ namespace IntegrationTests.Links.Shows
             {
                 LinkId = 123,
                 Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
                 Shows = new List<ShowsLink.Show>()
             };
 
@@ -68,6 +72,7 @@ namespace IntegrationTests.Links.Shows
             {
                 UserId = 123,
                 Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
                 Shows = new List<ShowsLink.Show>()
             };
 

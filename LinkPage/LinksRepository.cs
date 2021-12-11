@@ -1,24 +1,23 @@
-﻿using LinkPage.Links;
-using LinkPage.Links.Classic;
+﻿using LinkPage.Links.Classic;
 using LinkPage.Links.Shows;
 
 namespace LinkPage
 {
     public class LinksRepository
     {
-        private readonly List<Link> _links = new();
+        private readonly List<ClassicLink> _links = new();
 
         public LinksRepository()
         {
             PopulateTestData();
         }
 
-        public LinksRepository(IEnumerable<Link> data)
+        public LinksRepository(IEnumerable<ClassicLink> data)
         {
             _links = data.ToList();
         }
 
-        public Link Add(int userId, Link link)
+        public ClassicLink Add(int userId, ClassicLink link)
         {
             var newLink = link.Clone();
             newLink.LinkId = _links.Count + 1;
@@ -34,7 +33,7 @@ namespace LinkPage
             .OfType<T>()
             .FirstOrDefault();
 
-        public IEnumerable<Link> GetLinks(int userId) => _links
+        public IEnumerable<ClassicLink> GetLinks(int userId) => _links
             .Where(link => link.UserId == userId);
 
         private void PopulateTestData()

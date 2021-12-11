@@ -2,16 +2,16 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
-using LinkPage.Links;
 using System.Collections.Generic;
 using LinkPage.Links.Shows;
 using System;
+using LinkPage.Links.Classic;
 
 namespace IntegrationTests.Links.Shows
 {
     public class TestGetLink
     {
-        private readonly List<Link> _testData = new()
+        private readonly List<ClassicLink> _testData = new()
         {
             new ShowsLink
             {

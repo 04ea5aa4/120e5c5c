@@ -1,4 +1,5 @@
 using LinkPage.Links;
+using LinkPage.Links.Classic;
 using LinkPage.Links.Shows;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
@@ -12,7 +13,7 @@ namespace IntegrationTests.Links.Shows
 {
     public class TestGetLinks
     {
-        private readonly List<Link> _testData = new()
+        private readonly List<ClassicLink> _testData = new()
         {
             new ShowsLink
             {

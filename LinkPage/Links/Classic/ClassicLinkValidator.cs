@@ -6,7 +6,8 @@ namespace LinkPage.Links.Classic
     {
         public ClassicLinkValidator()
         {
-            Include(new LinkValidator());
+            RuleFor(link => link.Title).NotEmpty();
+            RuleFor(link => link.Title).MaximumLength(144);
             RuleFor(link => link.Url)
                 .NotEmpty()
                 .MaximumLength(2084); // https://stackoverflow.com/a/33733386

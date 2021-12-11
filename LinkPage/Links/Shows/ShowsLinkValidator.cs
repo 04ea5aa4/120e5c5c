@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LinkPage.Links.Classic;
 
 namespace LinkPage.Links.Shows
 {
@@ -6,7 +7,7 @@ namespace LinkPage.Links.Shows
     {
         public ShowsLinkValidator()
         {
-            Include(new LinkValidator());
+            Include(new ClassicLinkValidator());
 
             RuleFor(showsLink => showsLink.Shows)
                 .Must(shows => shows.Select(show => show.Id).Distinct().Count() == shows.Count())
