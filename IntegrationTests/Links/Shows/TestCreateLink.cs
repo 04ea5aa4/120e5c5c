@@ -1,5 +1,4 @@
-﻿using LinkPage.Links;
-using LinkPage.Links.Classic;
+﻿using LinkPage.Links.Classic;
 using LinkPage.Links.Shows;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
@@ -121,14 +120,67 @@ namespace IntegrationTests.Links.Shows
             var newLink = new ShowsLink
             {
                 Shows = new List<ShowsLink.Show>(),
-                Title = "-------------100-chars------------------------------------------------------------------------------" +
-                    "-----------------145-chars-------------------",
+                Title = Helpers.GenerateStringOfLength(145),
             };
             var response = await SendCreateRequest(newLink);
 
             var content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.Contains("The length of 'Title' must be 144 characters or fewer.", content);
+        }
+
+        [Fact]
+        public async Task WhenVenueNameIsMoreThan1000Characters_BadRequestMessageIsReturned()
+        {
+            var newLink = new ShowsLink
+            {
+                Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
+                Shows = new List<ShowsLink.Show>
+                {
+                    new ShowsLink.Show
+                    {
+                        Id = 1,
+                        Date = new DateTime(2022, 1, 4),
+                        VenueName = Helpers.GenerateStringOfLength(1001),
+                        VenueLocation = "Sydney, Australia",
+                        IsSoldOut = false,
+                        IsOnSale = true,
+                    },
+                },
+            };
+            var response = await SendCreateRequest(newLink);
+
+            var content = await response.Content.ReadAsStringAsync();
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("The length of 'Venue Name' must be 1000 characters or fewer.", content);
+        }
+
+        [Fact]
+        public async Task WhenVenueLocationIsMoreThan1000Characters_BadRequestMessageIsReturned()
+        {
+            var newLink = new ShowsLink
+            {
+                Title = "La Bohème",
+                Url = "https://bookshows.com/iuh786BKHJ",
+                Shows = new List<ShowsLink.Show>
+                {
+                    new ShowsLink.Show
+                    {
+                        Id = 1,
+                        Date = new DateTime(2022, 1, 4),
+                        VenueName = "Sydney Opera House",
+                        VenueLocation = Helpers.GenerateStringOfLength(1001),
+                        IsSoldOut = false,
+                        IsOnSale = true,
+                    },
+                },
+            };
+            var response = await SendCreateRequest(newLink);
+
+            var content = await response.Content.ReadAsStringAsync();
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("The length of 'Venue Location' must be 1000 characters or fewer.", content);
         }
 
         [Fact]

@@ -4,6 +4,18 @@ namespace IntegrationTests
 {
     public static class Helpers
     {
+        public static string GenerateStringOfLength(int length)
+        {
+            var result = string.Empty;
+
+            for (var i = 0; i < length; i++)
+            {
+                result += "-";
+            }
+
+            return result;
+        }
+
         public static string Serialize<T>(T obj)
         {
             var options = new JsonSerializerOptions

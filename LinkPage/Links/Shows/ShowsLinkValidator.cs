@@ -16,8 +16,14 @@ namespace LinkPage.Links.Shows
             RuleForEach(showsLink => showsLink.Shows)
                 .ChildRules(shows =>
                 {
-                    shows.RuleFor(show => show.VenueName).NotEmpty();
-                    shows.RuleFor(show => show.VenueLocation).NotEmpty();
+                    shows
+                        .RuleFor(show => show.VenueName)
+                        .NotEmpty()
+                        .MaximumLength(1000);
+                    shows
+                        .RuleFor(show => show.VenueLocation)
+                        .NotEmpty()
+                        .MaximumLength(1000);
                 });
         }
     }
