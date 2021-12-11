@@ -6,6 +6,9 @@
 3. Navigate to the project directory like `cd LinkPage`
 4. Run `dotnet run` to restore dependencies, build, and run the solution!
 
+## What I didn't get up to
+I didn't get up to implementing the music links because I'd already spent way too much time on this problem. I'd probably split the repository layer out to be specific to each type of link. This would reduce side effects between features. I think this is what the instructions were hinting at with using a functional programming style. Code reuse is not always your friend.
+
 ## Decisions I made
 * My solution is built with C# on .NET 6 and ASP Core because that's what I am most familiar with. It meant I wasn't able to do the kind of functional programming you might do with Typescript or Javascript. In fact, I used inheritance a bit.
 * I decided to have a links endpoint that returns an array with many different link type object types in it. Only having a URL per object type would have been simplier and more RESTful, however, this trade-off for complexity allows the UI to get all of the data that it needs in one API call. In reality, these architectural trade-offs would have been discussed and documented between affected groups.
